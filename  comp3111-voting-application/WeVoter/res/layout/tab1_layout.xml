@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/tab_title"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:paddingTop="10sp"
+        android:paddingLeft="6sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        />
+    
+    <LinearLayout 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" >
+    	
+        <TextView 
+            android:id="@+id/tab_username"
+            android:textSize="12sp"
+            android:paddingLeft="10sp"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content" 
+            />
+        
+        <TextView 
+            android:id="@+id/tab_duration"
+            android:textSize="12sp"
+            android:padding="3sp"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content" 
+            />
+        
+    </LinearLayout>
+	
+	<TextView
+	    android:id="@+id/tab_desc"
+	    android:textSize="15sp"
+	    android:padding="6sp"
+	    android:textStyle="italic"
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+	    />
+	
+	<RelativeLayout 
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" >
+		<TextView
+	    	android:id="@+id/tab_option_1"
+	   		android:textSize="15sp"
+	    	android:padding="6sp"
+	    	android:textStyle="italic"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:maxLines="3"
+	    	/>
+
+		<ImageView
+		    android:id="@+id/tab_image_1"
+		    android:scaleType="fitXY"
+		    android:paddingTop="11sp"
+		    android:paddingBottom="11sp"
+		    android:layout_width="100dp"
+	    	android:layout_height="22dp"
+	    	android:layout_toRightOf="@id/tab_option_1"
+	    	android:src="@drawable/line" />
+		
+		<TextView
+	    	android:id="@+id/tab_num_1"
+	   		android:textSize="15sp"
+	    	android:padding="7sp"
+	    	android:layout_toRightOf="@id/tab_image_1"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+	    	/>
+		<TextView
+	    	android:id="@+id/tab_option_2"
+	   		android:textSize="15sp"
+	    	android:padding="6sp"
+	    	android:textStyle="italic"
+	    	android:layout_below="@id/tab_option_1"
+	    	android:layout_alignLeft="@id/tab_option_1"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:maxLines="3"
+	    	/>
+
+		<ImageView
+		    android:id="@+id/tab_image_2"
+		    android:scaleType="fitXY"
+		    android:paddingTop="11sp"
+		    android:paddingBottom="11sp"
+		    android:layout_width="100dp"
+	    	android:layout_height="10dp"
+	    	android:layout_below="@id/tab_image_1"
+	    	android:layout_alignLeft="@id/tab_image_1"
+	    	android:layout_gravity="center_vertical"
+	    	android:src="@drawable/line" />
+		
+		<TextView
+	    	android:id="@+id/tab_num_2"
+	   		android:textSize="14sp"
+	    	android:padding="7sp"
+	    	android:layout_toRightOf="@id/tab_image_2"
+	    	android:layout_below="@id/tab_num_1"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+	    	/>
+		<TextView
+	    	android:id="@+id/tab_option_3"
+	   		android:textSize="15sp"
+	    	android:padding="6sp"
+	    	android:textStyle="italic"
+	    	android:layout_below="@id/tab_option_2"
+	    	android:layout_alignLeft="@id/tab_option_2"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:maxLines="3"
+	    	/>
+
+		<ImageView
+		    android:id="@+id/tab_image_3"
+		    android:scaleType="fitXY"
+		    android:paddingTop="11sp"
+		    android:paddingBottom="11sp"
+		    android:layout_width="100dp"
+	    	android:layout_height="10dp"
+	    	android:layout_below="@id/tab_image_2"
+	    	android:layout_alignLeft="@id/tab_image_2"
+	    	android:layout_gravity="center_vertical"
+	    	android:src="@drawable/line" />
+		
+		<TextView
+	    	android:id="@+id/tab_num_3"
+	   		android:textSize="14sp"
+	    	android:padding="7sp"
+	    	android:layout_toRightOf="@id/tab_image_3"
+	    	android:layout_below="@id/tab_num_2"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+	    	/>
+		<TextView
+	    	android:id="@+id/tab_option_4"
+	   		android:textSize="15sp"
+	    	android:padding="6sp"
+	    	android:textStyle="italic"
+	    	android:layout_below="@id/tab_option_3"
+	    	android:layout_alignLeft="@id/tab_option_3"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:maxLines="3"
+	    	/>
+
+		<ImageView
+		    android:id="@+id/tab_image_4"
+		    android:scaleType="fitXY"
+		    android:paddingTop="11sp"
+		    android:paddingBottom="11sp"
+		    android:layout_width="100dp"
+	    	android:layout_height="10dp"
+	    	android:layout_below="@id/tab_image_3"
+	    	android:layout_alignLeft="@id/tab_image_3"
+	    	android:layout_gravity="center_vertical"
+	    	android:src="@drawable/line" />
+		
+		<TextView
+	    	android:id="@+id/tab_num_4"
+	   		android:textSize="14sp"
+	    	android:padding="7sp"
+	    	android:layout_toRightOf="@id/tab_image_4"
+	    	android:layout_below="@id/tab_num_3"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+	    	/>
+		<TextView
+	    	android:id="@+id/tab_option_5"
+	   		android:textSize="15sp"
+	    	android:padding="6sp"
+	    	android:textStyle="italic"
+	    	android:layout_below="@id/tab_option_4"
+	    	android:layout_alignLeft="@id/tab_option_4"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:maxLines="3"
+	    	/>
+
+		<ImageView
+		    android:id="@+id/tab_image_5"
+		    android:scaleType="fitXY"
+		    android:paddingTop="11sp"
+		    android:paddingBottom="11sp"
+		    android:layout_width="100dp"
+	    	android:layout_height="10dp"
+	    	android:layout_below="@id/tab_image_4"
+	    	android:layout_alignLeft="@id/tab_image_4"
+	    	android:layout_gravity="center_vertical"
+	    	android:src="@drawable/line" />
+		
+		<TextView
+	    	android:id="@+id/tab_num_5"
+	   		android:textSize="14sp"
+	    	android:padding="7sp"
+	    	android:layout_toRightOf="@id/tab_image_5"
+	    	android:layout_below="@id/tab_num_4"
+	    	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+	    	/>
+	</RelativeLayout>
+</LinearLayout>
