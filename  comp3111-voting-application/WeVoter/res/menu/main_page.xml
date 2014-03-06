@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/ChangePwd"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/change_pwd"/>
+    <item
+        android:id="@+id/NewVote"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/new_vote"/>
+    <item
+        android:id="@+id/LogOff"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/log_off"/>
+    <item 
+        android:id="@+id/Refresh"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/Refresh"/>
+</menu>
