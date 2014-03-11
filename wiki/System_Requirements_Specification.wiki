@@ -1,0 +1,146 @@
+=Requirements Specification=
+
+==System Specification==
+
+The system is divided into three parts, android, database and server. On the android client side, we use eclipse IDE and android SDK as the fundamental tools to develop our application. Of course, to implement some deatiled features, like sharing on facebook, we need facebook SDK, etc. For database, we decided on Mysql 5.0, which is very popular for its stability and free. As for the server side, we use apache2.2 + php5 + javascript. Php is aimed to access the database, and javascript is for the interaction between users and browser. If necessary, we would also use tomcat and perl to make our website more flexible.
+
+----
+
+==User Interface Specification==
+
+<h3> 1. Login Page </h3>
+In this page, users are asked input their usernames and passwords(two EditViews). And there are a button to login and a checkbox as a option.
+
+if user wants his information to be stored so that he doesn’t need to enter his information again next time he logins. If the account entered is wrong, like no such username or wrong password, a toast appears to remind the user.
+<h3> 2. Main Page </h3>
+This page is divided into four parts(using TabActivity which extends Activity) just like WeChat.
+
+  # SubPage 1 displays all the vote information, including the title, username, duration, description, options, how many people have voted for each of them, etc. This subpage is implemented in a ListView in which each item is a schema of one vote topic.
+  # SubPage 2 displays all the votes that are still going on. This can be regarded as a subclass of the SubPage 1.
+  # SubPage 3 displays all the votes that I am involved in. Like the topics I have voted, or on which I have some comments on. It’s kind of notification that reminds me if there is something new concerning me.
+  # SubPage 4 is for the search function. There is a spinner(a component in android) for user to choose in which area to search, like title, description, ALL, etc. And of course, there is a EditText for user to enter the word or sentence, and a button to invoke this event.
+
+<h3> 3. Comment Page </h3>
+
+This page appears after user click one item of the ListView in Main Page.
+In this page, user can not only view the title, username, description, duration, but also the comments based on this vote topic, which is also a ListView.
+Further more, after touching one of these item, we can comment on our own.
+
+<h3> 4. AddVote Page </h3>
+
+After click the menu item on Main Page, we can get this page to motion a new vote. In this page, user are required to specify the title, duration, desription, options can be selected. After clicking, a button called ‘DONE’, these information will be sended to database.
+
+----
+
+<h2> Entity/Objects Specification </h2>
+
+<h3> 1. User </h3>
+
+The user object in the database consists of the following attributes:
+
+<b> User ID </b> - An integer value of length 32. User IDs are utilized to decrease the runtime of search functions. Auto increment option will be enabled in MySQL  to ensure uniqueness between different UIDs and to allow for faster indexing.
+
+<b> Username </b> - The user’s username will be stored as a VARCHAR with a maximum length of 60 in MySQL. The username will grant the user access to the application when they login. This will also be the name that’s displayed in the user’s own profile and on any votes or discussion they initiate (if they choose not to provide their name).
+
+<b> User Password </b> - Used in conjuction with the Username to grant users access to the application. The User_PWD will be stored as a VARCHAR value in MySQL.
+
+<b> Department </b> - Optional Information if the user wish to provide, it will also be stored in the VARCHAR format. Generally used to help collect categorized data and used to provide different perspectives on certain topics when users use the filter functions.
+
+<b> Email </b> - Generally aimed at password recovery services and will also be stored in the VARCHAR data type in MySQL. 
+
+<h3> 2. Vote Topic </h3>
+
+Users may contribute or initate a topic for polling/voting. The vote topic object in the database consists of the following attributes:
+
+<b> User ID </b> - Data format has been explained above. Each vote topic will contain the user ID as an attribute to allow for faster sorting/manipulation when they view their own votes on the profile tab.
+Username or owner - To keep track of the owner for each voting topic for easy documentation.
+
+<b> Title </b> - The title of each topic, stored as the VARCHAR type with a length of 120. This is just to give users an idea regarding the topic they’re viewing or voting for.
+
+<b> Description </b> - This attribute is stored as a TEXT data type in MySQL and can support up to 65,535 characters. It’s function is similar to the title but provides a bit more information to viewers.
+
+<b> Option Number </b> - the number of options other guys can choose
+
+<b> Start Time </b> - When the voting topic was started. The data type is DATE in MySQL with the format of YYYY-MM-DD.
+
+<b> End Time </b> - When the voting topic will end. After the topic ends, the voting options will close, but users will still be allowed to comment on the topic. The time will be stored as a DATE variable.
+
+<b> OP_X - X </b>is the number depending on what responses the user selects when casting a  vote on a topic. The Data type will be a VARCHAR with the a length of 120. If the owner wish for longer options, they may elaborate in the description.
+
+<b> OP_X_NUM </b> - The number which represents each coresponding OP_X. It will be stored as an INT of length 12 to support 12 different responses. It’s purpose is simply to index each response option.
+
+<h3> 3. Comment </h3>
+
+Users are allowed to leave comments for expressing their opinions on a particular voting topic. The structure of the comment object in the database is as follows:
+
+<b>User ID </b> - Each comment will be arbitarily linked to a UID to  specify the person who produced this comment. The purpose of the UID is the same as above, to speed up fetch times when we need to sort the comments according to certain filters (i.e. a user wishes to see his most recent comments or when a user wishes to see all the comments regarding a specific topic).
+
+<b> User or owner </b> - Data format is the mentioned above. It’s purpose is to specify the owner of the comment and display this to the public.
+
+<b> Description </b> - Will be implemented using the TEXT data type in the database. This attribute contains the content of a comment a user wishes to express.
+
+<b> Post Date </b> - When the comment’s posted and will also be stored in the DATE format in MySQL. This is merely for documentation reasons. 
+
+<b> Votes </b> - A signed integer number that stores the public opinion regarding the validity/appeal of the comment. A comment can be downvoted or upvoted. If the number falls below a certain threshold (i.e. -200) that comment may be withheld or removed. 
+
+----
+
+<h2> Funcationality Specification </h2>
+
+  # <h3> Login </h3> The login screen will be brought up once the user starts the application. The user interface will display a username and password prompt box (see above for details).
+    # <b> Login information </b>  - The user will be required to enter his/her username and password for validation before accessing the contents of the app.
+      * The application will check with the database to verify that the user is indeed valid.
+      * If there is no match found in the database matching the user’s entry (password or username), access will be denied. A red error message will be displayed at the bottom of the prompt box stating that “No such user exists”.
+      * Upon a successful login, the user will be brought to the Completed votes page (tab 1).
+    # <b> Reset password </b> - In case the user forgets his/her password.
+      * A “Forgot your password?” link will be provided in the user information prompt box. 
+      * Pressing the link will redirect the user to a different page giving them which will require them to input their email address and username.
+      * If the database validates the user, the user will receive an email containing a new randomly generated password.
+    # <b> Account registration </b> - For new users who wants to use this application.
+      * A “Register now” button will be available to redirect the user to the registaration interface.
+      * The user will be required to provide the following information: Username, password, email. Optional fields include: Full name and department.
+      * Once the registration is complete, an entry will be created in the database and a UID will be automatically generated for this account.
+    # <b> Password encryption </b> - For safety reasons. 
+      * When a user creates an account or resets their password, the password will be encrypted from the client side using the md5 function provided by MySQL. The password will not be stored in plain text.
+  # <h3> Voting Mechanism </h3> The voting mechanism is the main aspect of our application and a variety of functions will be made available for the user.
+    # <b> Completed votes </b> - This is the page that the user will see after logging in by default. 
+      * The topics will be listed in order to the time it was completed. A recently finished vote will be displayed first. In that sense it can be viewed as some sort of LIFO list.
+      * Each topic will be displayed in a small summary box containing the title and a horizontal bar chart indicating the number of current votes per response option.
+      * Comments will be excluded and the horizontal bar chart is set by default.
+      * The user can press on the summary box which will lead them to the topic’s own page (see 2.3. - viewing a voting topic).
+      *The user can scroll down the page to see older completed votes (see UI design specifications for more details).
+    # <b> Ongoing votes </b> - This is the second tab next to the completed votes tab.
+      * Topics will be listed in occardance to how much time is left for the ongoing voting topic. A shorter amount of time left will be displayed at the top of the UI while apps that have longer end times will be left at the end.
+      * Each topic will again, display a small summary box just like the completed votes option. An indication of the amount of time left will also be provided on next to the title. The description of the topic will be hidden and unavailable.
+      * The user may press on the summary box for further details.
+      * Scrolling is enabled (see above 2.1.5.)
+    # <b> Viewing a voting topic </b> - A user may wish to view a topic in more detail by pressing on the summary boxes. Once they press on the boxes, they will be led to the topic’s main page.
+      * The voting topic’s page will contain theTitle, a chart for data representation, a comments section and additional description information. Check boxes to allow for voting will be provided if the topic is still ongoing.
+      * A link to provide the user with the option to write a new comment will be available. Pressing on this link will bring them to the comments page.
+      * A link to the graph settings page will allow the user to change how they wish to view the polling results (see below - 2.8).
+      *The comment section is sorted by chronological order, most recent comments will be displayed at the top. Addtionally, the five highest rated comments will be displayed before the chronological list.
+    # <b> Casting a vote </b> - A user may cast a vote if the topic is still ongoing. 
+      * To cast a vote, the user can simply press on the summary box of an ongoing topic and select the checkbox for one of the response options.
+      * Pressing the submit button will commit the response to the database which will update the data accordingly.
+    # <b> Creating a voting topic </b> - Sometimes, users may have their own questions that they want to receive feedback on. This function will enable them to start their own topics.
+      * To create a new topic, the user must press on the create topic icon which will link them to a new page.
+      * In the create a comment page, the user will need to fill in multiple fields of information. For example, title, description and possible response options.
+    # <b> Commenting on topic </b> - When the user is viewing a topic,they may wish to express a comment.
+      * To express a comment, the user should press a button on the topic’s main page which will redirect them to the create a comment page. 
+      * In the create a comment page, they will be required to fill in a descrption box. The username and time of submission will be automatically generated by the application.
+    # <b> Rating a comment </b> - Comments can be rated +1 or -1 per user
+      * To rate a comment, the user is allowed to press a +1 button or a -1 button. +1 indicates approval and -1 indicates disapproval.
+      * The rating of the commennt will be displayed on the top right hand corner of the comment box.
+    # <b> Changing graphing options </b> - Users may wish to view the results of the polls in a different manner for practical or aesthetical reasons.
+      * Under the settings tab, the user can press on a “change graphing options” button which will initiate a pulldown menu.
+      * The user can select horizontal bar, vertical bar, pie, line charts in the pulldown menu. Addtional graphing options may be implemented base on user demand.
+  # <h3> User Profile </h3> User profile page displays the user’s recent activity and will document the topics they are interested in. The user’s profile can be accessed by pressing the 3rd tab on the toolbar (next to 2.2)
+    # <b> Topics owned by user </b> - Topics initiated by the users will be documentet to provide easier access to topics of interest.
+    # <b> Favorites/tracking </b> - Users can track the topics they are interested in.
+      * To track a topic, the user can press the star button on the the top right hand corner of the topic’s summary box (refer to UI specifications above).
+      * To untrack a topic, the user can press on a currently tracking star on the summary box from any of the tabs (provided they have access to the summary box).
+      * By default, any ongoing topics initiated by the user will be available in the “Topic owned by user” section.
+    # <b> View recent comments/participation </b> - Users can view the votes in which they are involved in. ‘Involve’ means they vote or comment on the votes. Modifying user account Information - Of course, users can modify their personal information like password. New information will be sended to database imediately.
+  # <h3> Search functions and filters </h3>
+    # <b> Database search </b> - Users can find votes in certain topics by entering the key words. What’s more, they can also specify where the key words to match, like title, username, description, etc.
+    # <b> Topic filtering </b> - If time permitting, we will add a feature to classfy all the votes. Users can choose to view the votes in certain topics, like concerning the canteen, dormitory, etc. Filtering the uninteresting votes make it more attractive.
