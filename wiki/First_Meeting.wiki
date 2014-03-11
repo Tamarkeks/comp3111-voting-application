@@ -1,6 +1,6 @@
 <h1> COMP3111: Software Engineering </h1>
 
-<h2> Minutes of 1st Scrum Meeting </h2>
+<h2> Minutes of 1st Meeting </h2>
 
 <h2> Voting Application </h2>
 
