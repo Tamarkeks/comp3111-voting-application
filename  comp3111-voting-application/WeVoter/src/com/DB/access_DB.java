@@ -33,7 +33,7 @@ import com.UI.sub.tab3;
 
 public class access_DB {
 	/************host of server***************/
-	private static String host = "143.89.211.3";
+	private static String host = "143.89.212.189";
 	
 	/*
 	 * To access the database, 
@@ -42,7 +42,7 @@ public class access_DB {
 	 */
 	private static JSONArray access_db(JSONObject json){
 		HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://" + host + ":8125/db_connect/myOp_DB.php");
+        HttpPost httppost = new HttpPost("http://" + host + ":8080/comp3111_project/db_connect/myOp_DB.php");
         try{
         	 httppost.setHeader("json", json.toString());
              StringEntity se = new StringEntity(json.toString());
