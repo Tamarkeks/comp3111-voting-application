@@ -87,6 +87,13 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
 		dura.setText(v.start_time + " - " + v.end_time);
 		dura.setTextColor(Color.GRAY);
 		
+		setLength(index);
+		
+		initList(index);
+	}
+	
+	private void setLength(int index){
+		Vote_info v = (Vote_info)Vote_info.VoteInfo.get(index);
 		TextView opt[] = new TextView[5];
 		opt[0] = (TextView)findViewById(R.id.comment_option_1);
 		opt[1] = (TextView)findViewById(R.id.comment_option_2);
@@ -95,12 +102,14 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
 		opt[4] = (TextView)findViewById(R.id.comment_option_5);
 		for(int i = 0; i < 5; i ++)
 			opt[i].setOnTouchListener(this);
+		
 		TextView opt_num[] = new TextView[5];
 		opt_num[0] = (TextView)findViewById(R.id.comment_num_1);
 		opt_num[1] = (TextView)findViewById(R.id.comment_num_2);
 		opt_num[2] = (TextView)findViewById(R.id.comment_num_3);
 		opt_num[3] = (TextView)findViewById(R.id.comment_num_4);
 		opt_num[4] = (TextView)findViewById(R.id.comment_num_5);
+		
 		ImageView opt_image[] = new ImageView[5];
 		opt_image[0] = (ImageView)findViewById(R.id.comment_image_1);
 		opt_image[1] = (ImageView)findViewById(R.id.comment_image_2);
@@ -128,8 +137,6 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
 		}
 		TextView com = (TextView)findViewById(R.id.comment_sig);
 		com.setTextColor(Color.RED);
-		
-		initList(index);
 	}
 	
 	private void initList(final int index){
@@ -195,7 +202,7 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		if(event.getAction() != MotionEvent.ACTION_DOWN) 
+		if(event.getAction() != MotionEvent.ACTION_UP) 
 			return true;
 		if(v == back_txt){
 			finish();
@@ -233,6 +240,7 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
     	public void onClick(DialogInterface dialog, int whichButton) {
     		Vote_info.VoteInfo.get(vote_index).voted = true;
     		Vote_info.VoteInfo.get(vote_index).myOpt = res;
+    		Vote_info.VoteInfo.get(vote_index).option_num[res] ++;
     		new Thread(new Runnable(){
     			@Override
     			public void run() {
@@ -245,6 +253,8 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
     				}	
     			}
     		}).start();
+    		// Update the UI immediately
+    		setLength(vote_index);
     	}
     	});
 
@@ -259,7 +269,7 @@ public class Comment extends Activity implements OnTouchListener, OnItemClickLis
 	}
 	private void initBar(){
     	ActionBar action=getActionBar();
-    	action.setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
+    	action.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 		action.setDisplayShowCustomEnabled(true);
 		action.setDisplayShowTitleEnabled(false);
 		back_txt =new TextView(getApplicationContext());

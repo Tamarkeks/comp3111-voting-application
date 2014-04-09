@@ -2,6 +2,7 @@ package com.UI.sub;
 
 import com.INFO.Vote_info;
 import com.UI.Comment;
+import com.UI.MainActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
@@ -33,6 +34,7 @@ public class tab3 extends ListActivity {
 	@Override
 	protected void onResume() {
 	  super.onResume();
+	  MainActivity.myRefresh();
 	  myAdapter.notifyDataSetChanged();
 	  isVisible = true;
 	}

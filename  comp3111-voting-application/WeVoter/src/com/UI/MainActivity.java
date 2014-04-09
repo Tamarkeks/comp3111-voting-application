@@ -70,15 +70,13 @@ public class MainActivity extends TabActivity{
 			return super.onOptionsItemSelected(item);
     	}
 	}
-    private void myRefresh(){
+    public static void myRefresh(){
     	new Thread(new Runnable(){
 			@Override
 			public void run() {
 				try {
 					access_DB.Get_Vote(1);
 				} catch (JSONException e) {
-					Toast.makeText(getBaseContext(), "Unexpected exception in myRefresh()!" ,
-							Toast.LENGTH_LONG).show();
 					e.printStackTrace();
 				}	
 			}
