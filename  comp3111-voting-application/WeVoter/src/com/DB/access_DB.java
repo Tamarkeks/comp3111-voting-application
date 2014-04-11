@@ -33,7 +33,7 @@ import com.UI.sub.tab3;
 
 public class access_DB {
 	/************host of server***************/
-	private static String host = "143.89.212.189";
+	private static String host = "143.89.176.11";
 	
 	/*
 	 * To access the database, 
