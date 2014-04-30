@@ -15,9 +15,5 @@
         android:label="@string/app_name" >
         <uses-library android:name="android.test.runner" />
     </application>
-    
-    <uses-permission
-        android:name="android.perission.INJECT_EVENTS">
-    </uses-permission>
 
 </manifest>
