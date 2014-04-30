@@ -71,6 +71,49 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 		currentView = currentActivity.findViewById(com.UI.R.id.login_btn_login);
 		TouchUtils.clickView(this, currentView);
 		instrument.waitForIdleSync();
+		
+		//Get the current activity which should be MainActivity if the login is successful.
+		currentActivity = (MainActivity) instrument.waitForMonitor(monitor);
+		instrument.waitForIdleSync();
+		instrument.removeMonitor(monitor);		
+		monitor = instrument.addMonitor(tab4.class.getName(), null, false);		
+		instrument.waitForIdleSync();
+		
+		getActivity().runOnUiThread(new Runnable()
+		{
+			@Override
+			
+			public void run()
+			{
+				tabHost = ((TabActivity) currentActivity).getTabHost();
+				tabHost.setCurrentTab(3);
+			}
+		});
+		
+		currentActivity = (tab4) instrument.waitForMonitor(monitor);
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		currentView = currentActivity.findViewById(com.UI.R.id.search_content);
+		TouchUtils.tapView(this, currentView);
+		instrument.sendStringSync("Test");
+		instrument.waitForIdleSync();
+		
+		currentView = currentActivity.findViewById(com.UI.R.id.search_btn);
+		TouchUtils.clickView(this, currentView);
+		instrument.waitForIdleSync();
+		
+		instrument.removeMonitor(monitor);
+		monitor = instrument.addMonitor(Comment.class.getName(), null, false);
+		
+		currentView = currentActivity.findViewById(com.UI.R.id.search_list);
+		TouchUtils.clickView(this, currentView);
+		instrument.waitForIdleSync();
 	}
 	
 	@Override
@@ -85,10 +128,10 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 	    super.tearDown();
 	}
 
-	public void testAddComment()
+	public void testAddVote_1()
 	{
 		//Get the current activity which should be MainActivity if the login is successful.
-		currentActivity = (MainActivity) instrument.waitForMonitorWithTimeout(monitor, 4000);	
+		/*currentActivity = (MainActivity) instrument.waitForMonitorWithTimeout(monitor, 4000);	
 		instrument.removeMonitor(monitor);		
 		monitor = instrument.addMonitor(tab4.class.getName(), null, false);		
 		instrument.waitForIdleSync();
@@ -120,23 +163,93 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 		
 		currentView = currentActivity.findViewById(com.UI.R.id.search_list);
 		TouchUtils.clickView(this, currentView);
-		instrument.waitForIdleSync();
+		instrument.waitForIdleSync();*/
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		currentActivity = instrument.waitForMonitorWithTimeout(monitor, 4000);
 		instrument.waitForIdleSync();
 		instrument.removeMonitor(monitor);
 		
-		currentView = currentActivity.findViewById(com.UI.R.id.comment_option_1);
+		View currentView = currentActivity.findViewById(com.UI.R.id.comment_option_1);
 		TouchUtils.tapView(this, currentView);
 		instrument.waitForIdleSync();
 		
-		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_LEFT);
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
 		instrument.waitForIdleSync();
 		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
 		instrument.waitForIdleSync();
 		
-		Vote_info.VoteInfo.get(Vote_info.VoteInfo.size() - 1).title.equals("Test_Title");
 		assertTrue(true);
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+	}
+	
+	public void testAddVote_2()
+	{
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		currentActivity = instrument.waitForMonitorWithTimeout(monitor, 4000);
+		instrument.waitForIdleSync();
+		instrument.removeMonitor(monitor);
+		
+		View currentView = currentActivity.findViewById(com.UI.R.id.comment_option_2);
+		TouchUtils.tapView(this, currentView);
+		instrument.waitForIdleSync();
+		
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
+		
+		assertTrue(true);
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+	}
+	
+	public void testAddComment()
+	{
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		currentActivity = instrument.waitForMonitorWithTimeout(monitor, 4000);
+		instrument.waitForIdleSync();
+		instrument.removeMonitor(monitor);
+		
+		View currentView = currentActivity.findViewById(com.UI.R.id.comment_list);
+		TouchUtils.tapView(this, currentView);
+		instrument.waitForIdleSync();
+		
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
+		instrument.sendStringSync("Testing");
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
+		
+		assertTrue(true);
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
 	}
 	
 }
