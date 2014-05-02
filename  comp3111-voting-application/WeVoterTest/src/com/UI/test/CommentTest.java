@@ -37,6 +37,13 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 	@Override
 	public void setUp() throws Exception
 	{
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		super.setUp();
 		
 		instrument = getInstrumentation();
@@ -121,9 +128,9 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 	
 	{
 		//Exit from main menu
-		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		//instrument.invokeMenuActionSync(currentActivity, com.UI.R.id.LogOff, 0);
 		instrument.waitForIdleSync();
-		instrument.invokeMenuActionSync(currentActivity, com.UI.R.id.LogOff, 0);
 		
 	    super.tearDown();
 	}
@@ -187,8 +194,12 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
 		instrument.waitForIdleSync();
 		
-		assertTrue(true);
 		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
+		
+		assertTrue(true);
 	}
 	
 	public void testAddVote_2()
@@ -215,8 +226,11 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
 		instrument.waitForIdleSync();
 		
-		assertTrue(true);
 		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
+		assertTrue(true);
 	}
 	
 	public void testAddComment()
@@ -247,9 +261,11 @@ public class CommentTest extends ActivityInstrumentationTestCase2<LoginPage> {
 		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
 		instrument.waitForIdleSync();
 		
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
 		assertTrue(true);
-		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
 	}
 	
 }
