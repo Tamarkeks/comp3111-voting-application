@@ -7,6 +7,9 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TabHost;
 
 import com.UI.LoginPage;
@@ -108,6 +111,114 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<LoginPage
 		assertNotNull(currentActivity);
 		//set current activity back to main activity
 		instrument.removeMonitor(monitor);
+	}
+	
+	public void testonOptionsItemSelected_ChangePwd()
+	{
+        //Get the current activity which should be MainActivity if the login is successful.
+		currentActivity = instrument.waitForMonitorWithTimeout(monitor, 1000);
+		
+		//Open menu
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		
+		//Remove monitor for MainActivity
+		instrument.removeMonitor(monitor);
+		monitor = instrument.addMonitor(LoginPage.class.getName(), null, false);
+		
+		//Invoke the menu action - press change password key
+		instrument.invokeMenuActionSync(currentActivity, com.UI.R.id.ChangePwd, 0);
+		instrument.waitForIdleSync();
+				
+		//Change password
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
+		instrument.sendStringSync("aaaa");
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+		instrument.waitForIdleSync();
+		
+		//logoff
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		instrument.invokeMenuActionSync(currentActivity, com.UI.R.id.LogOff, 0);
+		
+		currentActivity = instrument.waitForMonitorWithTimeout(monitor, 4000);
+		instrument.waitForIdleSync();
+		
+		//clear text box
+		final EditText username = (EditText) currentActivity.findViewById(com.UI.R.id.login_username);
+		final EditText password = (EditText) currentActivity.findViewById(com.UI.R.id.login_password);
+		
+		getActivity().runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				username.setText("");
+				password.setText("");
+			}
+		});
+		
+		instrument.waitForIdleSync();
+		
+		//Tap username editView and send "echo"
+		//currentView = currentActivity.findViewById(com.UI.R.id.login_username);
+		TouchUtils.tapView(this, username);
+		instrument.sendStringSync("echo");
+		instrument.waitForIdleSync();
+		
+		//Tap password editView and send "Aaaa"
+		//currentView = currentActivity.findViewById(com.UI.R.id.login_password);
+		TouchUtils.tapView(this, password);
+		instrument.sendStringSync("Aaaa");		//Send a password string - uuuu	
+		instrument.waitForIdleSync();
+		
+		//Uncheck save password
+		/*View currentView = currentActivity.findViewById(com.UI.R.id.save_info);
+		TouchUtils.clickView(this, currentView);
+		instrument.waitForIdleSync();*/
+		
+		//Remove the monitor for LoginPage before moving to MainActivity and add a new monitor for MainActivity
+		instrument.removeMonitor(monitor);
+		monitor = instrument.addMonitor(MainActivity.class.getName(), null, false);
+		
+		//Press Login button
+		View currentView = currentActivity.findViewById(com.UI.R.id.login_btn_login);
+		TouchUtils.clickView(this, currentView);
+		instrument.waitForIdleSync();
+		
+		currentActivity = instrument.waitForMonitorWithTimeout(monitor, 2000);
+		assertNotNull(currentActivity); //assertion
+		
+		//Chande password back to uuuu
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
+		
+		//Remove monitor for MainActivity
+		instrument.removeMonitor(monitor);
+		monitor = instrument.addMonitor(LoginPage.class.getName(), null, false);
+		
+		//Invoke the menu action - press change password key
+		instrument.invokeMenuActionSync(currentActivity, com.UI.R.id.ChangePwd, 0);
+		instrument.waitForIdleSync();
+				
+		//Change password
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_SHIFT_LEFT);
+		instrument.waitForIdleSync();
+		instrument.sendStringSync("uuuu");
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT);
+		instrument.waitForIdleSync();
+		instrument.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_CENTER);
+		instrument.waitForIdleSync();
 	}
 	
 	public void testonOptionsItemSelected_NewVote()
