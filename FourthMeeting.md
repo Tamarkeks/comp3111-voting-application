@@ -1,0 +1,64 @@
+<h1> COMP3111: Software Engineering </h1>
+
+<h2> Minutes of 4th Meeting </h2>
+
+<h2> Voting Application </h2>
+
+Date: 1/4/2014
+
+Time: 6:30pm
+
+Place: Computer Barn B
+
+Attending: Jeremiah Cheuk-Nam Mai, Xu MengWei, Meng Di, Tse Shing Chun
+
+Recorder: Jeremiah Mai
+
+
+
+&lt;hr&gt;
+
+
+
+<h3> 1.Progress of past week </h3>
+
+| Name | Task worked on in the past week | Hours |
+|:-----|:--------------------------------|:------|
+| Xu Mengwei | Implement the Logic Framework   | 6.5   |
+|Tse Shing Chun | UI implementation               | 6     |
+|Jeremiah Cheuk-Nam Mai | Interface Improvement           | 6     |
+|Meng Di | Interface implementation        | 6     |
+
+
+
+&lt;hr&gt;
+
+
+
+<h2> 2.Discussion of issues and proposed solutions </h2>
+
+While preparing for the midterm exam, we also spent a lot of time on this project. We discussed further about the UI and database design of our project, making some improvement and modification which make it more stable and secure. What's more, we implemented some plain activities in android, debugged and tested it.
+
+
+&lt;hr&gt;
+
+
+
+<h3> 3.Goals for coming week </h3>
+
+| Name | Tasks to work on for the coming week |
+|:-----|:-------------------------------------|
+| Xu Mengwei | Prepare for the Progress Presentation |
+|Tse Shing Chun | Prepare for the Progress Presentation |
+|Jeremiah Cheuk-Nam Mai | Prepare for the Progress Presentation |
+|Meng Di | Prepare for the Progress Presentation |
+
+
+
+&lt;hr&gt;
+
+
+
+<h3> 4.Meeting end time and next meeting </h3>
+
+The meeting was adjourned at 8:00pm. The next meeting will commence on April 8th 2014 at 6:00pm.
